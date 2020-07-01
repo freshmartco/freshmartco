@@ -177,20 +177,20 @@
 			<div class="page-header page-header-light">
 				<div class="page-header-content header-elements-md-inline">
 					<div class="page-title d-flex">
-						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Country Management</span> </h4>
+						<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Catagory Management</span> </h4>
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 					</div>
 
-					<div class="header-elements d-none">
+				<!-- 	<div class="header-elements d-none">
 							<a href="<?php echo site_url('country/add_country');?>" class="btn btn-labeled btn-labeled-right bg-primary">ADD COUNTRY<b><i class="fa fa-plus" aria-hidden="true"></i></b></a>
-					</div>
+					</div> -->
 				</div>
 
 				<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 					<div class="d-flex">
 						<div class="breadcrumb">
 							<a href="<?php site_url('manage-ad/home/dashboard');?>" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-							<span class="breadcrumb-item active">Country Management</span>
+							<span class="breadcrumb-item active">Catagory Management</span>
 						</div>
 
 						<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -216,6 +216,43 @@
 
 		
 			<!-- content area -->
+			 <div class="row">
+            <div class="col-md-12">
+               <form class="form-horizontal" action="<?php echo site_url('catagory/save_catagory');?>" method="POST" enctype="multipart/form-data">
+               	<input type="hidden" name="catagory_id" id="catagory_id">
+                  <!-- Other inputs -->
+                  <div class="card">
+                     <div class="card-header header-elements-inline">
+                        <h5 class="card-title">Add Catagory</h5>
+                        <div class="header-elements">
+                           <div class="list-icons">
+                              <a class="list-icons-item" data-action="collapse"></a>
+                              <a class="list-icons-item" data-action="reload"></a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <div class="row">
+                           <div class="col-md-1">
+                           </div>
+                           <div class="col-md-10">
+                              <div class="row">
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                       <label>Catagory Name: <span class="text-danger">*</span></label>
+                                       <input type="text" class="form-control" name="catagory_name" id="catagory_name" required autocomplete="off" required>
+                                    </div>
+                                 </div>
+                              </div>                                                            
+                              <br/>
+                              <button type="submit" class="btn btn-primary"  style="width:13%" id="h-default-basic-start">Save</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
 
 	<div class="card" id="validation_result">
 				<div class="card">
@@ -225,7 +262,7 @@
 								<th style="width:1%">Si No</th>
 								<th style="width:1%;display: none;">Si No</th>
 								<th style="width:1%;display: none;">Si No</th> 
-								<th>Country Name</th>	
+								<th>Catagory Name</th>	
 								<th>Status</th>	
 								<th style="width:1%">Actions</th>
 							</tr>
@@ -233,9 +270,9 @@
 						<tbody>
 
 						<?php 
-						if(!empty(count($country_master))){
+						if(!empty(count($catagories))){
 							$i=1;
-							foreach ($country_master as $key => $value) {
+							foreach ($catagories as $key => $value) {
 								$status="";
 								if($value['status']==0)
 								{
@@ -247,12 +284,12 @@
 								 		<td>'.$i.'</td>
 								 		<td  style="display: none;">'.$i.'</td>
 								 		<td  style="display: none;">'.$i.'</td>  
-								 		<td> <input  id="cont_'.$value['country_id'].'" value="'.$value['country_name'].'" class="form-control" onchange=update_country("'.$value['country_id'].'"); readonly/> 
+								 		<td> <input  id="cont_'.$value['catagory_id'].'" value="'.$value['catagory_name'].'" class="form-control" onchange=update_catagory("'.$value['catagory_id'].'"); readonly/> 
 								 		</td>		
 
 				 				 		<td>
 											<label class="switch">
-											<input type="checkbox" id="'.$value['country_id'].'" '.$status.' onclick="change_status(this.id);">
+											<input type="checkbox" id="'.$value['catagory_id'].'" '.$status.' onclick="change_status(this.id);">
 											<span class="slider round"></span>
 											</label>
 										</td>	
@@ -265,9 +302,9 @@
 												</a>
 												<div class="dropdown-menu dropdown-menu-right">	  
 
-													<a href="javascript:void(0);"  onclick="edit_country('.$value['country_id'].')"  class="dropdown-item"><i class="fa fa-pencil"></i> Edit Details</a>
+													<a href="javascript:void(0);" class="dropdown-item" onclick="edit_catagory('.$value['catagory_id'].')"><i class="fa fa-pencil"></i> Edit Details</a>
 
-													<a style="display:none;" href="javascript:void(0);"  onclick="delete_country('.$value['country_id'].')"  class="dropdown-item "><i class="fa fa-trash"></i> Delete</a>
+													<a style="display:none;" href="javascript:void(0);"  onclick="delete_country('.$value['catagory_id'].')"  class="dropdown-item "><i class="fa fa-trash"></i> Delete</a>
 												</div>
 											</div>
 										</div>
@@ -312,22 +349,22 @@
 <script type="text/javascript">
 
 
-	function edit_country(country_id)
+	function edit_catagory(catagory_id)
 	{ 
-		$('#cont_'+country_id).attr('readonly', false); 
+		$('#cont_'+catagory_id).attr('readonly', false); 
 	}
 
-	function update_country (country_id)
+	function update_catagory (catagory_id)
 	{ 
-		var country_name=$('#cont_'+country_id).val();
+		var catagory_name=$('#cont_'+catagory_id).val();
 
-		if(country_name !="" )
+		if(catagory_name !="" )
 		{
 			jQuery.ajax({
 			type:"POST",
-			url:"<?php echo base_url(); ?>" + "index.php/country/update_country",
+			url:"<?php echo base_url(); ?>" + "index.php/catagory/update_catagory",
 			datatype:"text",
-			data:{country_id:country_id,country_name:country_name},
+			data:{catagory_id:catagory_id,catagory_name:catagory_name},
 			success:function(response)
 			{ 
 				bootbox.alert({
@@ -347,6 +384,8 @@
 
 	function change_status(origin)
 		{
+			/*alert(origin);*/
+
 			value=1;
 			if ($('#'+origin).is(':checked')) 
 			 {
@@ -371,9 +410,9 @@
 					{					    		 
 						 jQuery.ajax({
 							type:"POST",
-							url:"<?php echo base_url(); ?>" + "index.php/country/change_countryStatus",
+							url:"<?php echo base_url(); ?>" + "index.php/catagory/change_catagoryStatus",
 							datatype:"text",
-							data:{country_id:origin,value:value},
+							data:{catagory_id:origin,value:value},
 							success:function(response)
 							{ 
 								bootbox.alert({
@@ -397,49 +436,6 @@
 		}
 
 	
-	function delete_country(id)
-			{  
-				
-				  
-				 bootbox.confirm({
-                title: 'Confirm delete',
-                message: 'Are you sure to delete the record ?',
-                buttons: {
-                    confirm: {
-                        label: 'Yes',
-                        className: 'btn-primary'
-                    },
-                    cancel: {
-                        label: 'Cancel',
-                        className: 'btn-link'
-                    }
-                },
-                callback: function (result) {
-					if(result==true)
-					{
-						$("div#divLoading").addClass('show');	
-						jQuery.ajax({
-						type:"POST",
-						url:"<?php echo base_url(); ?>" + "index.php/country/delete_country",
-						datatype:"text",
-						data:{id:id},
-						success:function(response)
-						{
-							$("div#divLoading").removeClass('show');
-							bootbox.alert({
-								title: 'Alert',
-								message: 'Record deleted successfully..!',
-								callback: function () { 
-										location.reload();
-									}
-								}); 
-								 
-						},
-						error:function (xhr, ajaxOptions, thrownError){}
-						});
-					}
-                }
-            });
-		}
+
 </script>
 </html>

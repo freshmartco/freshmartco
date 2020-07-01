@@ -72,6 +72,10 @@
                <a href="<?php echo site_url('country/area_index');?>" class="nav-link <?php if($active_menu=="area") { echo "active"; } ?>">
                <i class="icon-stack2"></i> <span>Area Master</span></a>
             </li> 
+              <li class="nav-item nav-item-submenu">
+               <a href="<?php echo site_url('catagory/index');?>" class="nav-link <?php if($active_menu=="catagory") { echo "active"; } ?>">
+               <i class="icon-stack2"></i> <span>Catagory Management</span></a>
+            </li>
 
             <!-- /page kits -->
          </ul>
